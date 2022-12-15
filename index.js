@@ -3,7 +3,12 @@ const exphbs = require('express-handlebars');
 
 const app = express();
 
-app.engine('handlebars', exphbs.engine());
+const hbs = exphbs.create({
+    partialsDir:['views/partials']
+})
+
+app.engine('handlebars', hbs.engine());
+
 app.set('view engine','handlebars');
 
 app.get('/', (req,res) => {
@@ -16,18 +21,31 @@ app.get('/', (req,res) => {
 });
 
 app.get('/info', (req,res) => {
-    
-    const user = {
-        Nome: "Lucas",
-        Idade: "18",
-        Cidade: "Campo Limpo Paulista",
-        Nota: "10"
-    };
-    
+  
+    const user = 
+    [
+        {
+            Nome: "Lucas",
+            Idade: "18",
+            Cidade: "Campo Limpo Paulista",
+            Nota: 10
+        },
+        {
+            Nome: "Paulo",
+            Idade: "17",
+            Cidade: "Jundiai",
+            Nota: 9
+        },
+        {
+            Nome: "Mauricio",
+            Idade: "17",
+            Cidade: "Varzea Paulista",
+            Nota: 10
+        }
+    ];
+
     const aprovade = false;
-
     const mensagem = "sua infomação";
-
 
     res.render('info', {user: user, mensagem, aprovade});
 });
